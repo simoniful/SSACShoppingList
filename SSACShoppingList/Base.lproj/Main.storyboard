@@ -24,8 +24,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SIh-sM-JPf">
                                 <rect key="frame" x="0.0" y="44" width="414" height="60"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VT5-FL-Jj1">
-                                        <rect key="frame" x="10" y="10" width="335.5" height="40"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VT5-FL-Jj1">
+                                        <rect key="frame" x="10" y="10" width="277" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
@@ -39,16 +39,30 @@
                                             <action selector="addBtnClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="c7A-RC-LjA"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A1U-62-JpY">
+                                        <rect key="frame" x="297" y="10" width="48.5" height="40"/>
+                                        <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="정렬"/>
+                                        <connections>
+                                            <action selector="filterBtnClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yDx-xb-Wru"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="2SS-p5-RbK" secondAttribute="bottom" constant="10" id="3Fd-py-WoV"/>
+                                    <constraint firstItem="A1U-62-JpY" firstAttribute="leading" secondItem="VT5-FL-Jj1" secondAttribute="trailing" constant="10" id="3Xf-xj-DbS"/>
+                                    <constraint firstAttribute="bottom" secondItem="A1U-62-JpY" secondAttribute="bottom" constant="10" id="5go-q3-xRJ"/>
                                     <constraint firstItem="VT5-FL-Jj1" firstAttribute="top" secondItem="SIh-sM-JPf" secondAttribute="top" constant="10" id="5hG-H7-Nnz"/>
                                     <constraint firstAttribute="trailing" secondItem="2SS-p5-RbK" secondAttribute="trailing" constant="10" id="Gf4-ba-oAo"/>
-                                    <constraint firstItem="2SS-p5-RbK" firstAttribute="leading" secondItem="VT5-FL-Jj1" secondAttribute="trailing" constant="10" id="HKC-VK-8hc"/>
                                     <constraint firstAttribute="height" constant="60" id="OWD-bT-cbE"/>
+                                    <constraint firstItem="A1U-62-JpY" firstAttribute="top" secondItem="SIh-sM-JPf" secondAttribute="top" constant="10" id="Omg-Nt-7ce"/>
                                     <constraint firstAttribute="bottom" secondItem="VT5-FL-Jj1" secondAttribute="bottom" constant="10" id="ajv-Ew-Wju"/>
                                     <constraint firstItem="VT5-FL-Jj1" firstAttribute="leading" secondItem="SIh-sM-JPf" secondAttribute="leading" constant="10" id="bYv-aE-WKW"/>
+                                    <constraint firstItem="2SS-p5-RbK" firstAttribute="leading" secondItem="A1U-62-JpY" secondAttribute="trailing" constant="10" id="hqg-f5-x6p"/>
+                                    <constraint firstItem="A1U-62-JpY" firstAttribute="leading" secondItem="VT5-FL-Jj1" secondAttribute="trailing" constant="10" id="r9P-iX-c8x"/>
                                     <constraint firstItem="2SS-p5-RbK" firstAttribute="top" secondItem="SIh-sM-JPf" secondAttribute="top" constant="10" id="uHh-pd-SKF"/>
                                 </constraints>
                             </view>

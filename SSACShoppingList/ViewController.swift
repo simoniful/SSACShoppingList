@@ -9,9 +9,14 @@ import UIKit
 import RealmSwift
 
 
+enum FilterStatus: Int {
+    case basic, title, favorite, checked
+}
+
 class ViewController: UIViewController {
     let localRealm = try! Realm()
     var shoppingList: Results<ShoppingItem>!
+    var filterStatus: FilterStatus = .basic
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var inputText: UITextField!
@@ -43,6 +48,42 @@ class ViewController: UIViewController {
             inputText.text = ""
         }
     }
+    
+    func changeFilterStatus(_ input:FilterStatus) {
+        filterStatus = input
+        switch filterStatus {
+        case .basic, .title:
+            shoppingList = localRealm.objects(ShoppingItem.self).sorted(byKeyPath: "itemName", ascending: true)
+            tableView.reloadData()
+        case .favorite:
+            shoppingList = localRealm.objects(ShoppingItem.self).sorted(byKeyPath: "favorite", ascending: true)
+            tableView.reloadData()
+        case .checked:
+            shoppingList = localRealm.objects(ShoppingItem.self).sorted(byKeyPath: "checked", ascending: true)
+            tableView.reloadData()
+        }
+    }
+    
+    @IBAction func filterBtnClicked(_ sender: UIButton) {
+        // 1. UIAlertController 생성: 밑바탕 + 타이틀 + 본문
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        // 2. UIAlertAction 생성: 버튼들..
+        let title = UIAlertAction(title: "제목순", style: .default, handler: {(action: UIAlertAction!) in self.changeFilterStatus(.title)})
+        let favorite = UIAlertAction(title: "완료순", style: .default, handler:{(action: UIAlertAction!) in self.changeFilterStatus(.favorite)})
+        let checked = UIAlertAction(title: "즐겨찾기순", style: .default, handler:{(action: UIAlertAction!) in self.changeFilterStatus(.checked)})
+        let cancel = UIAlertAction(title: "취소", style: .cancel, handler:nil)
+        
+        // 3. 1+2
+        alert.addAction(title)
+        alert.addAction(favorite)
+        alert.addAction(checked)
+        alert.addAction(cancel)
+        
+        // 4. Present
+        present(alert, animated: true, completion: nil)
+    }
+    
     
 }
 
