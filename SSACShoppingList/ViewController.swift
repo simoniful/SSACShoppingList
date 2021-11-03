@@ -16,12 +16,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var inputText: UITextField!
     
-//    var list: [ShoppingList] = [] {
-//        didSet {
-//            print("List가 변경되었어요")
-//        }
-//    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -45,7 +39,6 @@ class ViewController: UIViewController {
             try! localRealm.write {
                 localRealm.add(item)
             }
-            // list.append(todo)
             tableView.reloadData()
             inputText.text = ""
         }
@@ -63,19 +56,24 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         let row = shoppingList[indexPath.row]
-        
         cell.titleLabel.text = row.itemName
         
         cell.checkboxAction = { [unowned self] in
-            self.shoppingList[indexPath.row].checked = !(self.shoppingList[indexPath.row].checked)
-            self.shoppingList[indexPath.row].checked == true ? cell.checkbox.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal) : cell.checkbox.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
+            try! localRealm.write {
+                row.checked = !(row.checked)
+                tableView.reloadData()
+             }
         }
+        row.checked == true ? cell.checkbox.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal) : cell.checkbox.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
         
         cell.favoriteBtnAction = { [unowned self] in
-            self.shoppingList[indexPath.row].favorite = !(self.shoppingList[indexPath.row].favorite)
-            self.shoppingList[indexPath.row].favorite == true ? cell.favoriteBtn.setImage(UIImage(systemName: "star.fill"), for: .normal) : cell.favoriteBtn.setImage(UIImage(systemName: "star"), for: .normal)
+            try! localRealm.write {
+                row.favorite = !(row.favorite)
+                tableView.reloadData()
+             }
         }
-        
+        row.favorite == true ? cell.favoriteBtn.setImage(UIImage(systemName: "star.fill"), for: .normal) : cell.favoriteBtn.setImage(UIImage(systemName: "star"), for: .normal)
+    
         return cell
     }
     
@@ -87,11 +85,12 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         return true
     }
     
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//            shoppingList.remove(at: indexPath.row)
-//            tableView.reloadData()
-//        }
-//    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        try! localRealm.write {
+            let row = shoppingList[indexPath.row]
+            localRealm.delete(row)
+            tableView.reloadData()
+        }
+    }
 }
 
